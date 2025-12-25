@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Christmas Masterpiece</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; background: #010103; overflow: hidden; font-family: 'Playfair Display', serif; }
+        
+        /* Tiêu đề cố định lấp lánh */
+        #header-title {
+            position: absolute;
+            top: 10%;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+            color: #ffd700;
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #d4af37, #fff, #d4af37, #ffd700, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: flex; justify-content: center;
+            align-items: center; z-index: 100; color: gold; cursor: pointer; text-align: center;
+        }
+        h2 { font-size: 2rem; border: 2px solid gold; padding: 20px; border-radius: 50px; }
+
+        /* --- Style cho Phong Thư & Mũi tên --- */
+        #envelope-container {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            z-index: 50;
+        }
+
+        #envelope-icon {
+            cursor: pointer;
+            font-size: 4rem;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 15px gold);
+            animation: bounce 2s infinite;
+            margin-left: 20px;
+        }
+
+        #arrow-pointer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: gold;
+            animation: pointRight 1s infinite alternate;
+        }
+
+        #arrow-pointer span {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            margin-bottom: -10px;
+            text-shadow: 0 0 10px gold;
+        }
+
+        #arrow-pointer .arrow-svg {
+            width: 60px;
+            filter: drop-shadow(0 0 5px gold);
+        }
+
+        @keyframes pointRight {
+            from { transform: translateX(0); }
+            to { transform: translateX(15px); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        /* --- Style cho Bức Thư (Modal) --- */
+        #letter-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 85%;
+            max-width: 600px;
+            background: #fff9e6;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5), inset 0 0 100px rgba(212, 175, 55, 0.2);
+            z-index: 200;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 8px double #d4af37;
+            text-align: center;
+            color: #333;
+            display: none;
+        }
+        #letter-modal.active { display: block; transform: translate(-50%, -50%) scale(1); }
+        
+        .letter-content {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .letter-footer {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: bold;
+            color: #b30000;
+        }
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-top: 15px;
+            text-align: right;
+            padding-right: 30px;
+            font-weight: 700;
+        }
+        #close-letter {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #b30000;
+        }
+        .letter-decoration {
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="overlay">
+    <div>
+        <h2>PLEASE CLICK</h2>
+    </div>
+</div>
+
+<div id="header-title">Merry Christmas</div>
+
+<div id="envelope-container">
+    <div id="arrow-pointer">
+        <span>Click me!</span>
+        <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="gold" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <div id="envelope-icon">✉️</div>
+</div>
+
+<div id="letter-modal">
+    <div id="close-letter">&times;</div>
+    <div class="letter-decoration">🎄✨🎁</div>
+    <div class="letter-content">
+        Chúc bạn có một mùa Giáng Sinh thật ấm áp bên gia đình và người thân!<br><br>
+        Mong rằng năm mới sẽ mang đến cho bạn thật nhiều niềm vui, sức khỏe và thành công.<br><br>
+        Hãy để những điều tốt đẹp nhất luôn đến với bạn, và tình yêu thương luôn ngập tràn trong trái tim bạn.
+    </div>
+    <div class="letter-footer">
+        <p>Chúc bạn một giáng sinh an lành và hạnh phúc!</p>
+    </div>
+    <div class="signature">Vũ Khánh Hùng</div>
+    <div class="letter-decoration">❄️🎅❄️</div>
+</div>
+
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
+// --- Scene Setup ---
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+document.body.appendChild(renderer.domElement);
+
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.2, 0.4, 0.15);
+composer.addPass(bloomPass);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.2));
+const starLight = new THREE.PointLight(0xffd700, 50, 25);
+scene.add(starLight);
+
+// --- 1. Ambient Galaxy ---
+const GALAXY_COUNT = 3000;
+const galaxyGeo = new THREE.BufferGeometry();
+const galaxyPos = new Float32Array(GALAXY_COUNT * 3);
+for (let i = 0; i < GALAXY_COUNT; i++) {
+    galaxyPos[i*3] = (Math.random()-0.5)*70;
+    galaxyPos[i*3+1] = (Math.random()-0.5)*70;
+    galaxyPos[i*3+2] = (Math.random()-0.5)*70;
+}
+galaxyGeo.setAttribute('position', new THREE.BufferAttribute(galaxyPos, 3));
+const galaxyMat = new THREE.PointsMaterial({ size: 0.08, color: 0xffe29c, transparent: true, blending: THREE.AdditiveBlending });
+const galaxyPoints = new THREE.Points(galaxyGeo, galaxyMat);
+scene.add(galaxyPoints);
+
+// --- 2. Cây thông biến hình ---
+const PARTICLE_COUNT = 2000;
+let state = 'TREE'; 
+let animationStartTime = 0;
+const currentPos = Array.from({ length: PARTICLE_COUNT }, () => new THREE.Vector3());
+const treeTargets = [], scatterTargets = [];
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const h = Math.random() * 10;
+    const r = (10 - h) * 0.42 * (0.8 + Math.random() * 0.4);
+    const a = Math.random() * Math.PI * 2;
+    treeTargets.push(new THREE.Vector3(Math.cos(a)*r, h-5, Math.sin(a)*r));
+    currentPos[i].copy(treeTargets[i]);
+    scatterTargets.push(new THREE.Vector3((Math.random()-0.5)*45, (Math.random()-0.5)*45, (Math.random()-0.5)*45));
+}
+
+const particles = new THREE.InstancedMesh(new THREE.SphereGeometry(0.07, 8, 8), new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 1, emissive: 0xffaa00, emissiveIntensity: 0.8 }), PARTICLE_COUNT);
+scene.add(particles);
+
+const topper = new THREE.Mesh(new THREE.OctahedronGeometry(0.5, 0), new THREE.MeshBasicMaterial({ color: 0xfff5ba }));
+topper.position.y = 5.2;
+scene.add(topper);
+
+// --- 3. Chữ bay Logic ---
+const floatingTexts = [];
+const words = [ "MERRY", "CHRISTMAS", "HAPPY", "MERRY CHRISTMAS", "GREAT!", "2025"];
+new FontLoader().load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
+    for (let i = 0; i < 35; i++) {
+        const geo = new TextGeometry(words[i%words.length], { font, size: 0.35, height: 0.05 });
+        geo.center();
+        const mesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xffd700, transparent: true, opacity: 0.8 }));
+        mesh.userData = { phi: Math.random()*10, theta: Math.random()*10, dist: 12+Math.random()*8, spd: 0.003+Math.random()*0.007 };
+        scene.add(mesh);
+        floatingTexts.push(mesh);
+    }
+});
+
+// Controls & Events
+const controls = new OrbitControls(camera, renderer.domElement);
+camera.position.set(0, 5, 25);
+controls.enableDamping = true;
+
+const envelope = document.getElementById('envelope-icon');
+const letter = document.getElementById('letter-modal');
+const closeBtn = document.getElementById('close-letter');
+const arrow = document.getElementById('arrow-pointer');
+
+document.getElementById('overlay').onclick = () => document.getElementById('overlay').style.display = 'none';
+
+envelope.onclick = (e) => {
+    e.stopPropagation();
+    letter.style.display = 'block';
+    setTimeout(() => {
+        letter.classList.add('active');
+        arrow.style.opacity = '0'; // Ẩn mũi tên khi mở thư
+    }, 10);
+};
+
+closeBtn.onclick = () => {
+    letter.classList.remove('active');
+    setTimeout(() => {
+        letter.style.display = 'none';
+        arrow.style.opacity = '1'; // Hiện lại mũi tên khi đóng thư
+    }, 600);
+};
+
+window.addEventListener('mousedown', (e) => {
+    if(letter.classList.contains('active') || e.target.closest('#envelope-container') || e.target.closest('#letter-modal')) return;
+    animationStartTime = Date.now();
+    state = state === 'TREE' ? 'SCATTER' : 'TREE';
+});
+
+const dummy = new THREE.Object3D();
+const clock = new THREE.Clock();
+
+function animate() {
+    requestAnimationFrame(animate);
+    const elapsed = clock.getElapsedTime();
+    const t = Math.min((Date.now() - animationStartTime) / 2500, 1);
+    const eased = t * t * (3 - 2 * t);
+
+    galaxyPoints.rotation.y += 0.0003;
+    galaxyMat.opacity = 0.4 + Math.sin(elapsed) * 0.2;
+
+    floatingTexts.forEach(mesh => {
+        mesh.userData.phi += mesh.userData.spd;
+        const d = mesh.userData.dist + Math.sin(elapsed * 0.5) * 2;
+        mesh.position.x = d * Math.sin(mesh.userData.phi) * Math.cos(mesh.userData.theta);
+        mesh.position.y = d * Math.sin(mesh.userData.phi) * Math.sin(mesh.userData.theta) + 2;
+        mesh.position.z = d * Math.cos(mesh.userData.phi);
+        mesh.lookAt(camera.position);
+    });
+
+    const targets = state === 'TREE' ? treeTargets : scatterTargets;
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        currentPos[i].lerp(targets[i], eased);
+        dummy.position.copy(currentPos[i]);
+        const s = 0.8 + Math.sin(elapsed * 5 + i) * 0.3;
+        dummy.scale.set(s, s, s);
+        dummy.updateMatrix();
+        particles.setMatrixAt(i, dummy.matrix);
+    }
+    particles.instanceMatrix.needsUpdate = true;
+
+    topper.visible = (state === 'TREE');
+    topper.rotation.y += 0.03;
+    starLight.position.copy(topper.position);
+    starLight.intensity = (state === 'TREE') ? 45 + Math.sin(elapsed * 5) * 15 : 10;
+
+    scene.rotation.y += 0.001;
+    controls.update();
+    composer.render();
+}
+animate();
+
+window.onresize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    composer.setSize(window.innerWidth, window.innerHeight);
+};
+</script>
+</body>
+</html>
